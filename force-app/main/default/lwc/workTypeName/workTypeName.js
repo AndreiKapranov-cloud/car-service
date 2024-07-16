@@ -50,7 +50,7 @@ export default class WorkTypeName extends LightningElement {
         async createWorkType() {
         const fields = {};
         fields[WORK_TYPE_NAME_FIELD.fieldApiName] = this.name;
-      //  fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
+        fields[DESCRIPTION_FIELD.fieldApiName] = this.description;
          fields[ESTIMATED_DURATION_FIELD.fieldApiName] = this.estimatedDuration;
         // fields[DURATION_TYPE_FIELD.fieldApiName] = this.durationType;
         // fields[SHOULD_AUTO_CREATE_SERVICE_APPOINTMENT_FIELD.fieldApiName] = this.shouldAutoCreateSvcAppt;
