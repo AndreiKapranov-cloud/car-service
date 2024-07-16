@@ -1,6 +1,7 @@
-import { LightningElement } from 'lwc';
+import { LightningElement,wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { createRecord } from 'lightning/uiRecordApi';
+import { getPicklistValues } from 'lightning/uiObjectInfoApi'
 import WORK_TYPE_OBJECT from '@salesforce/schema/WorkType';
 import WORK_TYPE_NAME_FIELD from '@salesforce/schema/WorkType.Name';
 import DESCRIPTION_FIELD from '@salesforce/schema/WorkType.Description';
@@ -9,7 +10,7 @@ import DURATION_TYPE_FIELD from '@salesforce/schema/WorkType.DurationType';
 import SHOULD_AUTO_CREATE_SERVICE_APPOINTMENT_FIELD from '@salesforce/schema/WorkType.ShouldAutoCreateSvcAppt';
 
 export default class WorkTypeName extends LightningElement {
-
+     picklistValues = []
      name = '';
      description = '';
      estimatedDuration = '';
@@ -31,7 +32,18 @@ export default class WorkTypeName extends LightningElement {
         }
       }
      
-
+      @wire(getPicklistValues, {
+        recordTypeId: '012000000000000AAA',
+        fieldApiName: DURATION_TYPE_FIELD,
+      })
+      getPicklistValuesForField({ data, error }) {
+        if (error) {
+          // TODO: Error handling
+          console.error(error)
+        } else if (data) {
+          this.picklistValues = [...data.values]
+        }
+      }
     //  handleButtonClick() {
     //     const recordInput = {
     //         apiName: WORK_TYPE_OBJECT.objectApiName,
