@@ -13,29 +13,29 @@
         
         <div class="slds-m-horizontal_small">
           
-           <lightning-input label="Work Type Name" onchange={changeHandler} required></lightning-input>
+           <lightning-input name="name" label="Work Type Name" onchange={handleChange} required></lightning-input>
            
         </div>
         <div class="slds-m-horizontal_small">
           
-           <lightning-input label="Description" onchange={changeHandler}></lightning-input>
+           <lightning-input name="description" label="Description" onchange={handleChange}></lightning-input>
         </div>
         <div class="slds-m-horizontal_small">
          
-           <lightning-input label="Estimated Duration" onchange={changeHandler} required></lightning-input>
+           <lightning-input name="estimatedDuration" label="Estimated Duration" onchange={handleChange} required></lightning-input>
         </div>
         <div class="slds-m-horizontal_small">
           
-           <lightning-input label="Duration Type" onchange={changeHandler} required></lightning-input>
+           <lightning-input name="durationType" label="Duration Type" onchange={handleChange} required></lightning-input>
         </div>
         <div class="slds-m-around_medium">
-          <lightning-input label="Auto-Create Service Appointment" class="slds-p-left" type="checkbox" checked={checkboxVal} >
+          <lightning-input name="shouldAutoCreateSvcAppt" label="Auto-Create Service Appointment" onchange={handleChange} class="slds-p-left" type="checkbox" checked={checkboxVal} >
           </lightning-input >
         </div>
         
         <div class="slds-p-right_medium">
            <div class="slds-clearfix">
-            <lightning-button label="Next" variant="brand" onclick={openNewRecord} class="slds-float_right">
+            <lightning-button label="Next" variant="brand" onclick={createWorkType} class="slds-float_right">
             </lightning-button>
            </div>
         </div>
