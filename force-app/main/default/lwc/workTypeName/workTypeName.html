@@ -24,12 +24,19 @@
          
            <lightning-input name="estimatedDuration" label="Estimated Duration" onchange={handleChange} required></lightning-input>
         </div>
-        <div class="slds-m-horizontal_small">
+        <!-- <div class="slds-m-horizontal_small">
           
            <lightning-input name="durationType" label="Duration Type" onchange={handleChange} required></lightning-input>
+        </div> -->
+
+        <div class="slds-m-horizontal_small">
+        <lightning-combobox
+           options={picklistValues} label="Duration Type" onchange={handleChange} name="durationType" required
+        ></lightning-combobox>
         </div>
+
         <div class="slds-m-around_medium">
-          <lightning-input name="shouldAutoCreateSvcAppt" label="Auto-Create Service Appointment" onchange={handleChange} class="slds-p-left" type="checkbox" checked={checkboxVal} >
+          <lightning-input name="shouldAutoCreateSvcAppt" label="Auto-Create Service Appointment" onchange={handleChange} class="slds-p-left" type="checkbox" >
           </lightning-input >
         </div>
         
@@ -39,8 +46,6 @@
             </lightning-button>
            </div>
         </div>
-        <lightning-combobox
-        options={picklistValues}
-      ></lightning-combobox>
+        
     </lightning-card>
 </template>
