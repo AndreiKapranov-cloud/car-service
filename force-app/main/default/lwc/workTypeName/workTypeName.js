@@ -17,7 +17,10 @@ export default class WorkTypeName extends LightningElement {
      estimatedDuration = '';
      durationType = '';
      shouldAutoCreateSvcAppt = false;
-
+     showParentComponent = true;
+     showChildComponent = false;
+     workTypeRecordId;
+    
      
      handleChange(e) {
         if (e.target.name === "name") {
@@ -54,11 +57,14 @@ export default class WorkTypeName extends LightningElement {
         fields[DURATION_TYPE_FIELD.fieldApiName] = this.durationType;
         fields[SHOULD_AUTO_CREATE_SERVICE_APPOINTMENT_FIELD.fieldApiName] = this.shouldAutoCreateSvcAppt;
 
-
+        
         const recordInput = { apiName: WORK_TYPE_OBJECT.objectApiName, fields:fields};
         try {
-            const workType = await createRecord(recordInput);
+            const workType = await createRecord(recordInput)
             
+            .then(result => {
+              this.workTypeRecordId = result.Id;})
+
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
@@ -66,14 +72,18 @@ export default class WorkTypeName extends LightningElement {
                     variant: 'success'
                 })
             );
+            
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error creating record',
+                    title: 'Error creating Work Type record',
                     message: error,
                     variant: 'error'
                 })
             );
+            
         }
+        this.showParentComponent = false;
+        this.showChildComponent = true;
     }
 }

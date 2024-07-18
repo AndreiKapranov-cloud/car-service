@@ -7,7 +7,7 @@ public with sharing class SkillController {
     @AuraEnabled(cacheable=true)
     public static List<Skill> getSkills() {
         return [
-            SELECT MasterLabel
+            SELECT Id,MasterLabel
             FROM Skill
             Limit 20
        ];
