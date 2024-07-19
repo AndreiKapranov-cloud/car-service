@@ -3,7 +3,7 @@
 
         <template lwc:if={showParentComponent}>
         <div class="slds-text-heading_large">
-        <div class="slds-text-align_center">Work Type Name</div>
+        <div class="slds-text-align_center">New Work Type</div>
         </div>
 
 
@@ -45,7 +45,7 @@
         </template>
 
         <template lwc:elseif={showChildComponent}>
-        <c-new-skill-requirement work-type-record-id={workTypeRecordId}></c-new-skill-requirement>
+        <c-new-skill-requirement work-type-name={workTypeName} work-type-record-id={workTypeRecordId} ></c-new-skill-requirement>
         </template>
     </lightning-card>
 </template>

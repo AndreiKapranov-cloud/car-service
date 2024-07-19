@@ -20,6 +20,8 @@ export default class WorkTypeName extends LightningElement {
      showParentComponent = true;
      showChildComponent = false;
      workTypeRecordId;
+     workTypeName;
+     timeoutId;
     
      
      handleChange(e) {
@@ -62,8 +64,24 @@ export default class WorkTypeName extends LightningElement {
         try {
             const workType = await createRecord(recordInput)
             
-            .then(result => {
-              this.workTypeRecordId = result.Id;})
+            .then(record => {
+                
+                
+                console.log('workTypeRecordName = ' + record.name);
+                this.workTypeName = record.name; 
+                this.timeoutId = setTimeout(() => {
+                console.log('workTypeRecordId = ' + record.id);
+                
+                this.workTypeRecordId = record.id;
+              }, 5000);
+              
+           
+
+              // let oofficePicklist = result.data.values;
+              // this.officePicklist = [...oofficePicklist];
+              // this.office =  this.officePicklist[0].value;
+            })
+            
 
             this.dispatchEvent(
                 new ShowToastEvent({
@@ -86,4 +104,8 @@ export default class WorkTypeName extends LightningElement {
         this.showParentComponent = false;
         this.showChildComponent = true;
     }
+   
+      disconnectedCallback() {
+      clearTimeout(this.timeoutId);
+  }
 }

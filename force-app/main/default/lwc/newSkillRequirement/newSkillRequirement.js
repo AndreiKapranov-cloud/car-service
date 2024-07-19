@@ -7,7 +7,6 @@ import WORK_TYPE from '@salesforce/schema/SkillRequirement.RelatedRecordId';
 import SKILL from '@salesforce/schema/SkillRequirement.SkillId';
 import SKILL_LEVEL from '@salesforce/schema/SkillRequirement.SkillLevel';
 import getSkills from '@salesforce/apex/SkillController.getSkills';
-import getWorkType from '@salesforce/apex/workTypeController.getWorkType';
 
 
 export default class NewSkillRequirement extends LightningElement {
@@ -16,8 +15,11 @@ export default class NewSkillRequirement extends LightningElement {
     skillRequired;
     skillLevel;
     @api workTypeRecordId;
-    workTypes;
+    @api workTypeName;
+    workTypeId;
     error;
+    
+    
 
     @wire(getSkills) skills;
 
@@ -30,7 +32,46 @@ export default class NewSkillRequirement extends LightningElement {
         }
       }
 
-    // @wire(getWorkType, { workTypeId: '$workTypeRecordId' })
+
+    //   @wire(getRecord, { recordId: "$workTypeRecordId", fields })
+    //   workType;
+
+    //   get workTypeName() {
+    //     return getFieldValue(this.workType.data, NAME_FIELD);
+        
+    //   }
+
+
+
+
+    //   @wire(getWorkType,{workTypeId:'$workTypeRecordId'})
+    //   getWType({ error, data }) {
+
+    //     if (data) {
+
+    //       this.workTypeName = data;
+    //       console.log('Work Type name from apex = ' + this.workTypeName);
+    //       this.error = undefined;
+    //   } else if (error) {
+    //       this.error = error;
+    //       this.workTypeName = undefined; 
+    //       console.log('Something went wrong:', error);
+    //       console.error('e.message => ' + e.message );
+    //     }
+    //   }
+//     renderedCallback() {
+
+//         this.getWorkType(this.workTypeRecordId);
+
+//  }
+
+
+
+
+    // @wire(getWorkType,{workTypeId:'$workTypeRecordId'})
+    // workType;
+    
+    // @wire(getWorkType, { workTypeId: '$workTypeRecordId' })   //из-за этой хуйни перестаёт всё работать
     // workTypes;
      
 
@@ -53,9 +94,13 @@ export default class NewSkillRequirement extends LightningElement {
     //     return this.workTypeRecord.data.fields.Name.value;
     //   }
 
+
     async createSkillRequirement() {
+   // this.timeoutId = setTimeout(()=>this.doExpensiveThing(), 500);
+    console.log('Namenamename = ' + this.workTypeName);
+    console.log('final workTypeRecordId for skill req = ' + this.workTypeRecordId);//без этой строчки не работает
     const fields = {};
-    fields[WORK_TYPE.fieldApiName] = '08qdL0000000rXNQAY';
+    fields[WORK_TYPE.fieldApiName] = this.workTypeRecordId;// '08qdL0000000rsLQAQ';//workTypes[0].data.Id;//'08qdL0000000rXNQAY';
     fields[SKILL.fieldApiName] = this.skillRequired;
     fields[SKILL_LEVEL.fieldApiName] = this.skillLevel;
 
@@ -82,4 +127,14 @@ export default class NewSkillRequirement extends LightningElement {
             })
         );
     }
-    }}
+ }
+//  async renderedCallback() {
+//     this.workTypeName = await getWorkTypeName({ workTypeId: this.workTypeRecordId });
+//         console.log('final name for Work Type = ' + this.workTypeName);
+//         this.error = undefined;
+//     } catch (error) {
+//         this.error = error;
+//         this.workTypeName = undefined;
+//     }
+  }
+
