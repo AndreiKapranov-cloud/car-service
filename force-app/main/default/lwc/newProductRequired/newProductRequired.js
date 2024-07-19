@@ -8,7 +8,7 @@ import WORK_TYPE from '@salesforce/schema/ProductRequired.ParentRecordId';
 import PRODUCT_2 from '@salesforce/schema/ProductRequired.Product2Id';
 import QUANTITY_REQUIRED from '@salesforce/schema/ProductRequired.QuantityRequired';
 import QUANTITY_UNIT_OF_MEASURE from '@salesforce/schema/ProductRequired.QuantityUnitOfMeasure';
-
+const RECORDTYPEID = '012000000000000AAA';
 
 export default class NewProductRequired extends LightningElement {
     
@@ -35,7 +35,7 @@ export default class NewProductRequired extends LightningElement {
       }
 
     @wire(getPicklistValues, {
-    recordTypeId: '012000000000000AAA',
+    recordTypeId: RECORDTYPEID,
     fieldApiName: QUANTITY_UNIT_OF_MEASURE,
     })
     getPicklistValuesForField({ data, error }) {

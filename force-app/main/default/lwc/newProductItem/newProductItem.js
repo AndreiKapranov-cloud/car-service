@@ -11,7 +11,7 @@ import QUANTITY_ON_HAND from '@salesforce/schema/ProductItem.QuantityOnHand';
 import QUANTITY_UNIT_OF_MEASURE from '@salesforce/schema/ProductItem.QuantityUnitOfMeasure';
 import SERIAL_NUMBER from '@salesforce/schema/ProductItem.SerialNumber';
 import getProduct2 from '@salesforce/apex/productRequiredController.getProduct2';
-
+const RECORDTYPEID = '012000000000000AAA';
 
 export default class NewProductItem extends LightningElement {
 
@@ -45,7 +45,7 @@ export default class NewProductItem extends LightningElement {
 
 
     @wire(getPicklistValues, {
-    recordTypeId: '012000000000000AAA',
+    recordTypeId: RECORDTYPEID,
     fieldApiName: QUANTITY_UNIT_OF_MEASURE,
     })
     getPicklistValuesForField({ data, error }) {
