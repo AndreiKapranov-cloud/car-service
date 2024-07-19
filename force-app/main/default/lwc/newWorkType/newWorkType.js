@@ -9,7 +9,7 @@ import ESTIMATED_DURATION_FIELD from '@salesforce/schema/WorkType.EstimatedDurat
 import DURATION_TYPE_FIELD from '@salesforce/schema/WorkType.DurationType';
 import SHOULD_AUTO_CREATE_SERVICE_APPOINTMENT_FIELD from '@salesforce/schema/WorkType.ShouldAutoCreateSvcAppt';
 
-export default class WorkTypeName extends LightningElement {
+export default class NewWorkType extends LightningElement {
     
      picklistValues = []
      name = '';
@@ -45,9 +45,9 @@ export default class WorkTypeName extends LightningElement {
       getPicklistValuesForField({ data, error }) {
         if (error) {
           // TODO: Error handling
-          console.error(error)
+          console.error(error);
         } else if (data) {
-          this.picklistValues = [...data.values]
+          this.picklistValues = [...data.values];
         }
       }
     

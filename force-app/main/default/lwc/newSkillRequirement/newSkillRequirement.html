@@ -1,6 +1,6 @@
 <template>
     <lightning-card>
-
+       <template lwc:if={showParentComponent}>
         <div class="slds-text-heading_large">
         <div class="slds-text-align_center">New Skill Requirement</div>
         </div>
@@ -43,14 +43,13 @@
           </div>
          </div>
         </div>
-      
-        <div class="slds-m-around_medium">
+       </template>
+        
          
-         
-            <!-- <template for:each={workTypes} for:item="workType">
-              <p key={workType.Id}>{workType.Name}</p>
-            </template> -->
-            
-        </div>
+      <template lwc:elseif={showChildComponent}>
+      <c-new-product-required work-type-name={workTypeName} work-type-record-id={workTypeRecordId} ></c-new-product-required>
+      </template>
+
+   
     </lightning-card>
 </template>

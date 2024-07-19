@@ -1,8 +1,9 @@
 <template>
     <lightning-card>
-
+      <template lwc:if={showParentComponent}>
+        
         <div class="slds-text-heading_large">
-        <div class="slds-text-align_center">New Product Requirement</div>
+        <div class="slds-text-align_center">New Product Required</div>
         </div>
 
         <div class="slds-m-around_medium">
@@ -10,16 +11,16 @@
         </div>
         
         <div class="slds-m-horizontal_small">
-           <lightning-input name="workType" label="Parent Record" value={workTypeName} ></lightning-input>
+           <lightning-input name="workType" label="Parent Record" value={workTypeName} required></lightning-input>
         </div>
        
         <div class="slds-m-horizontal_small">
         <div class="slds-form-element">
-            <label class="slds-form-element__label">Product Required</label>
+            <label class="slds-form-element__label" >Product Required</label>
             <div class="slds-form-element__control">
               <div class="slds-select_container">
-                <select class="slds-select" name="productRequired" onchange={handleChange}>
-                    <template for:each={product.data} for:item="product" >
+                <select class="slds-select" name="productRequired" onchange={handleChange} required>
+                    <template for:each={product2s.data} for:item="product" >
 
                         <option key={product.Id} value={product.Id} >{product.Name} </option>
         
@@ -30,27 +31,36 @@
           </div>
         </div>
 
-      
+    
         <div class="slds-m-horizontal_small">
-            <lightning-input name="skillLevel" label="Skill Level" onchange={handleChange} ></lightning-input>
+            <lightning-input name="quantityRequired" label="Quantity Required" onchange={handleChange} ></lightning-input>
         </div>
     
-        <div class="slds-p-right_medium">
+        <div class="slds-m-horizontal_small">
+          <lightning-combobox
+             options={picklistValues} label="Quantity Unit Of Measure" onchange={handleChange} name="quantityUnitOfMeasure" 
+          ></lightning-combobox>
+          </div>
+      
+          <div class="slds-p-right_medium">
          <div class="slds-m-top_small">
           <div class="slds-clearfix">
-            <lightning-button label="Next" variant="brand" onclick={createSkillRequirement} class="slds-float_right">
+            <lightning-button label="Next" variant="brand" onclick={createProductRequired} class="slds-float_right">
             </lightning-button>
           </div>
          </div>
         </div>
       
         <div class="slds-m-around_medium">
-         
-         
-            <!-- <template for:each={workTypes} for:item="workType">
-              <p key={workType.Id}>{workType.Name}</p>
-            </template> -->
             
         </div>
+      </template>
+
+      <template lwc:elseif={showChildComponent}>
+      <c-new-product-item></c-new-product-item>
+      </template>
+
+
+
     </lightning-card>
 </template>

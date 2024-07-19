@@ -18,7 +18,8 @@ export default class NewSkillRequirement extends LightningElement {
     @api workTypeName;
     workTypeId;
     error;
-    
+    showParentComponent = true;
+    showChildComponent = false;
     
 
     @wire(getSkills) skills;
@@ -127,7 +128,10 @@ export default class NewSkillRequirement extends LightningElement {
             })
         );
     }
- }
+    this.showParentComponent = false;
+    this.showChildComponent = true;
+    }
+  }
 //  async renderedCallback() {
 //     this.workTypeName = await getWorkTypeName({ workTypeId: this.workTypeRecordId });
 //         console.log('final name for Work Type = ' + this.workTypeName);
@@ -136,5 +140,6 @@ export default class NewSkillRequirement extends LightningElement {
 //         this.error = error;
 //         this.workTypeName = undefined;
 //     }
-  }
+
+  
 
