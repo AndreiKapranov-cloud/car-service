@@ -68,35 +68,13 @@ export default class NewWorkType extends LightningElement {
             .then(record => {
               this.workTypeName = record.name.value; 
                 
-                console.log('workTypeRecordName = ' + this.record.name);
-                this.workTypeName = this.record.name; 
-                this.timeoutId = setTimeout(() => {
-                console.log('workTypeRecordId = ' + record.id);
-                
-                console.log('workTypeRecordName = ' + this.record.name);
-
-                console.log('workTypeRecordName = ' + this.record.value);
-                workTypeName
-                console.log('workTypeRecordName = ' + this.workTypeName);
-
-
-                this.rec = [...record.values];
-                console.log('workTypeRecordName = ' + this.rec);
-
-
-
-
-                this.workTypeRecordId = record.id;
-              }, 5000);
-              
-           
-
-              // let oofficePicklist = result.data.values;
-              // this.officePicklist = [...oofficePicklist];
-              // this.office =  this.officePicklist[0].value;
+              console.log('workTypeRecordName = ' + this.record.name);
+              this.workTypeName = this.record.name; 
+            
+              this.workTypeRecordId = record.id;
+         
             })
             
-
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
@@ -118,8 +96,4 @@ export default class NewWorkType extends LightningElement {
         this.showParentComponent = false;
         this.showChildComponent = true;
     }
-   
-      disconnectedCallback() {
-      clearTimeout(this.timeoutId);
   }
-}

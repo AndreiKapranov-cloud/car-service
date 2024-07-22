@@ -1,90 +1,114 @@
 
 import { LightningElement,wire,api} from 'lwc';
-import getLocation from '@salesforce/apex/locationController.getLocation';
+import getPriorityPicklistValues from '@salesforce/apex/WorkOrderController.getPriorityPicklistValues';
+import getWorkTypes from '@salesforce/apex/WorkTypeController.getWorkTypes';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { createRecord } from 'lightning/uiRecordApi';
-import PRODUCT_ITEM_OBJECT from '@salesforce/schema/ProductItem';
-import PRODUCT_2 from '@salesforce/schema/ProductItem.Product2Id';
-import LOCATION from '@salesforce/schema/ProductItem.LocationId';
-import QUANTITY_ON_HAND from '@salesforce/schema/ProductItem.QuantityOnHand';
-import QUANTITY_UNIT_OF_MEASURE from '@salesforce/schema/ProductItem.QuantityUnitOfMeasure';
-import SERIAL_NUMBER from '@salesforce/schema/ProductItem.SerialNumber';
-import getProduct2s from '@salesforce/apex/productRequiredController.getProduct2s';
+import WORK_ORDER_OBJECT from '@salesforce/schema/WorkOrder';
+import WORK_TYPE from '@salesforce/schema/WorkOrder.WorkTypeId';
+import STATUS from '@salesforce/schema/WorkOrder.Status';
+import PRIORITY from '@salesforce/schema/WorkOrder.Priority';
+import SUBJECT from '@salesforce/schema/WorkOrder.Subject';
+import DESCRIPTION from '@salesforce/schema/WorkOrder.Description';
 const RECORD_TYPE_ID = '012000000000000AAA';
 
 export default class NewWorkOrder extends LightningElement {
 
-    location;
-    productRequired;
-    product2Id;
-    serialNumber;
-    
-    quantityOnHand;
-    quantityUnitOfMeasure;
-    @wire(getLocation) locations;
-    @wire(getProduct2s) product2s;
+    status;
+    priority;
+    workTypeId;
+    subject;
+    description;
+    workOrderRecordId;
+    showParentComponent = true;
+    showChildComponent = false;
+
+    @wire(getWorkTypes) workTypes;
    
     handleChange(e) {
 
-        if (e.target.name === "product2") {
-            this.product2Id = this.template.querySelector('[data-id="product2"]').value;
-        } else if (e.target.name === "location") {
-            this.location = this.template.querySelector('[data-id="location"]').value;;
-        } else if (e.target.name === "quantityOnHand") {
-            this.quantityOnHand = e.target.value;
-        } else if (e.target.name === "quantityUnitOfMeasure") {
-            this.quantityUnitOfMeasure = e.target.value;
-        } else if (e.target.name === "serialNumber") {
-            this.serialNumber = e.target.value;
+        if (e.target.name === "status") {
+            this.status = e.target.value;
+        } else if (e.target.name === "priority") {
+            this.priority = e.target.value;
+        } else if (e.target.name === "workType") {
+            this.workTypeId = this.template.querySelector('select.slds-select').value;
+        } else if (e.target.name === "subject") {
+            this.subject = e.target.value;
+        } else if (e.target.name === "description") {
+            this.description = e.target.value;
         }
       }
 
     @wire(getPicklistValues, {
     recordTypeId: RECORD_TYPE_ID,
-    fieldApiName: QUANTITY_UNIT_OF_MEASURE,
+    fieldApiName: STATUS,
     })
     getPicklistValuesForField({ data, error }) {
     if (error) {
         // TODO: Error handling
         console.error(error)
     } else if (data) {
-        this.picklistValues = [...data.values]
+        this.statusPicklistValues = [...data.values];
       }
     }
 
-    async createProductItem() {
+    @wire(getPriorityPicklistValues, {})
+    wiredPriorityPicklistValues({ error, data }) {
+        if (data) {
+            // Map the data to an array of options
+            this.priorityPicklistValues = data.map(option => {
+                return {
+                    label: option.label,
+                    value: option.value
+                };
+            });
+        }
+        else if (error) {
+            console.error(error);
+        }
+    }
+
+   
+        async createWorkOrder() {
    
         
         const fields = {};
       
-        fields[PRODUCT_2.fieldApiName] = this.product2Id;
-        fields[LOCATION.fieldApiName] = this.location;
-        fields[QUANTITY_ON_HAND.fieldApiName] = this.quantityOnHand;
-        fields[QUANTITY_UNIT_OF_MEASURE.fieldApiName] = this.quantityUnitOfMeasure;
-        fields[SERIAL_NUMBER.fieldApiName] = this.serialNumber;
+        fields[STATUS.fieldApiName] = this.status;
+        fields[PRIORITY.fieldApiName] = this.priority;
+        fields[WORK_TYPE.fieldApiName] = this.workTypeId;
+        fields[SUBJECT.fieldApiName] = this.subject;
+        fields[DESCRIPTION.fieldApiName] = this.description;
      
-     
-    const recordInput = { apiName: PRODUCT_ITEM_OBJECT.objectApiName, fields:fields};
+    const recordInput = { apiName: WORK_ORDER_OBJECT.objectApiName, fields:fields};
     try {
-        const productItem = await createRecord(recordInput);
-        
+        const workOrder = await createRecord(recordInput)
+
+        .then(record => {
+         
+              this.workOrderRecordId = record.id;
+          
+         })
+
         this.dispatchEvent(
             new ShowToastEvent({
                 title: 'Success',
-                message: 'Product Required created',
+                message: 'Work Order created',
                 variant: 'success'
             })
         );
     } catch (error) {
         this.dispatchEvent(
             new ShowToastEvent({
-                title: 'Error creating Skill Requirement record',
+                title: 'Error creating Work Order record',
                 message: error,
                 variant: 'error'
             })
         );
     }
+    this.showParentComponent = false;
+    this.showChildComponent = true;
   }
-}
 }

@@ -1,6 +1,6 @@
 
 import { LightningElement,wire,api} from 'lwc';
-import getLocation from '@salesforce/apex/locationController.getLocation';
+import getLocation from '@salesforce/apex/LocationController.getLocation';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { createRecord } from 'lightning/uiRecordApi';
@@ -49,7 +49,7 @@ export default class NewProductItem extends LightningElement {
         // TODO: Error handling
         console.error(error)
     } else if (data) {
-        this.picklistValues = [...data.values]
+        this.picklistValues = [...data.values];
       }
     }
 
@@ -72,14 +72,14 @@ export default class NewProductItem extends LightningElement {
         this.dispatchEvent(
             new ShowToastEvent({
                 title: 'Success',
-                message: 'Product Required created',
+                message: 'Product Item created',
                 variant: 'success'
             })
         );
     } catch (error) {
         this.dispatchEvent(
             new ShowToastEvent({
-                title: 'Error creating Skill Requirement record',
+                title: 'Error creating Product Item record',
                 message: error,
                 variant: 'error'
             })

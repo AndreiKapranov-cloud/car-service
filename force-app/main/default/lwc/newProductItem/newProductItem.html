@@ -50,27 +50,19 @@
                             </div>
                           </div>
                         </div>  
-                   
-                 
                 </lightning-layout-item>
              </lightning-layout>
         </div>
 
-    
         <div class="c-container">
             <lightning-layout>
                 <lightning-layout-item padding="around-small">
                  
-
         <div class="slds-m-horizontal_small">
             <lightning-input name="quantityOnHand" label="Quantity On Hand" onchange={handleChange} ></lightning-input>
         </div>
-    
-
     </lightning-layout-item>
     <lightning-layout-item padding="around-small">
-
-
 
         <div class="slds-m-horizontal_small">
           <lightning-combobox
@@ -78,34 +70,30 @@
           ></lightning-combobox>
           </div>
       
-
         </lightning-layout-item>
     </lightning-layout>
-</div>
+   </div>
 
-
-<div class="demo-only demo-only--sizing slds-grid slds-wrap">
+   <div class="demo-only demo-only--sizing slds-grid slds-wrap">
     <div class="slds-size_1-of-2">
       <div class="slds-m-horizontal_small">
     <lightning-input name="serialNumber" label="Serial Number" onchange={handleChange} ></lightning-input>
-</div>
+      </div>
+      </div>
+    </div>
 
-   </div>
-</div>
 
-
-          <div class="slds-p-right_medium">
-         <div class="slds-m-top_small">
-          <div class="slds-clearfix">
-            <lightning-button label="Next" variant="brand" onclick={createProductItem} class="slds-float_right">
-            </lightning-button>
-          </div>
-         </div>
+    <div class="slds-p-right_medium">
+      <div class="slds-m-top_small">
+        <div class="slds-clearfix">
+        <lightning-button label="Next" variant="brand" onclick={createProductItem} class="slds-float_right">
+        </lightning-button>
         </div>
+      </div>
+    </div>
       
-        <div class="slds-m-around_medium">
-         
-        </div>
-        
+  <div class="slds-m-around_medium">
+  </div>
+          
     </lightning-card>
 </template>

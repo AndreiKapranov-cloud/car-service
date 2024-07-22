@@ -1,5 +1,5 @@
 import { LightningElement,wire,api} from 'lwc';
-import getProduct2 from '@salesforce/apex/productRequiredController.getProduct2';
+import getProduct2s from '@salesforce/apex/ProductRequiredController.getProduct2s';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { createRecord } from 'lightning/uiRecordApi';
@@ -20,7 +20,7 @@ export default class NewProductRequired extends LightningElement {
     quantityUnitOfMeasure;
     @api workTypeRecordId;
     @api workTypeName;
-    @wire(getProduct2) product2s;
+    @wire(getProduct2s) product2s;
 
    
     handleChange(e) {
@@ -42,7 +42,7 @@ export default class NewProductRequired extends LightningElement {
     if (error) {
         console.error(error)
     } else if (data) {
-        this.picklistValues = [...data.values]
+        this.picklistValues = [...data.values];
       }
     }
 
@@ -72,7 +72,7 @@ export default class NewProductRequired extends LightningElement {
     } catch (error) {
         this.dispatchEvent(
             new ShowToastEvent({
-                title: 'Error creating Skill Requirement record',
+                title: 'Error creating Product Required record',
                 message: error,
                 variant: 'error'
             })

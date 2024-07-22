@@ -1,5 +1,5 @@
-public with sharing class productRequiredController {
-    public productRequiredController() {
+public with sharing class ProductRequiredController {
+    public ProductRequiredController() {
 
     }
     @AuraEnabled(cacheable=true)

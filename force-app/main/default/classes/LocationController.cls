@@ -1,5 +1,5 @@
-public with sharing class locationController {
-    public locationController() {
+public with sharing class LocationController {
+    public LocationController() {
 
     }
     @AuraEnabled(cacheable=true)
