@@ -66,13 +66,26 @@ export default class NewWorkType extends LightningElement {
             const workType = await createRecord(recordInput)
             
             .then(record => {
+              this.workTypeName = record.name.value; 
                 
-                
-                console.log('workTypeRecordName = ' + record.name);
-                this.workTypeName = record.name; 
+                console.log('workTypeRecordName = ' + this.record.name);
+                this.workTypeName = this.record.name; 
                 this.timeoutId = setTimeout(() => {
                 console.log('workTypeRecordId = ' + record.id);
                 
+                console.log('workTypeRecordName = ' + this.record.name);
+
+                console.log('workTypeRecordName = ' + this.record.value);
+                workTypeName
+                console.log('workTypeRecordName = ' + this.workTypeName);
+
+
+                this.rec = [...record.values];
+                console.log('workTypeRecordName = ' + this.rec);
+
+
+
+
                 this.workTypeRecordId = record.id;
               }, 5000);
               
