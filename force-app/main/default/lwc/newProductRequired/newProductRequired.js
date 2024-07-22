@@ -8,7 +8,7 @@ import WORK_TYPE from '@salesforce/schema/ProductRequired.ParentRecordId';
 import PRODUCT_2 from '@salesforce/schema/ProductRequired.Product2Id';
 import QUANTITY_REQUIRED from '@salesforce/schema/ProductRequired.QuantityRequired';
 import QUANTITY_UNIT_OF_MEASURE from '@salesforce/schema/ProductRequired.QuantityUnitOfMeasure';
-const RECORDTYPEID = '012000000000000AAA';
+const RECORD_TYPE_ID = '012000000000000AAA';
 
 export default class NewProductRequired extends LightningElement {
     
@@ -35,12 +35,11 @@ export default class NewProductRequired extends LightningElement {
       }
 
     @wire(getPicklistValues, {
-    recordTypeId: RECORDTYPEID,
+    recordTypeId: RECORD_TYPE_ID,
     fieldApiName: QUANTITY_UNIT_OF_MEASURE,
     })
     getPicklistValuesForField({ data, error }) {
     if (error) {
-        // TODO: Error handling
         console.error(error)
     } else if (data) {
         this.picklistValues = [...data.values]
@@ -48,11 +47,11 @@ export default class NewProductRequired extends LightningElement {
     }
 
     async createProductRequired() {
-    // this.timeoutId = setTimeout(()=>this.doExpensiveThing(), 500);
+    
         console.log('Namenamename = ' + this.workTypeName);
         console.log('final workTypeRecordId for skill req = ' + this.workTypeRecordId);//без этой строчки не работает
         const fields = {};
-        fields[WORK_TYPE.fieldApiName] = this.workTypeRecordId;// '08qdL0000000rsLQAQ';//workTypes[0].data.Id;//'08qdL0000000rXNQAY';
+        fields[WORK_TYPE.fieldApiName] = this.workTypeRecordId;
         fields[PRODUCT_2.fieldApiName] = this.productRequired;
         fields[QUANTITY_REQUIRED.fieldApiName] = this.quantityRequired;
         fields[QUANTITY_UNIT_OF_MEASURE.fieldApiName] = this.quantityUnitOfMeasure;
