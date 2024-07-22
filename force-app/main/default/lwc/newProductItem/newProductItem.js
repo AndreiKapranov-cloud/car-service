@@ -1,6 +1,6 @@
 
 import { LightningElement,wire,api} from 'lwc';
-import getLocation from '@salesforce/apex/LocationController.getLocation';
+import getLocations from '@salesforce/apex/LocationController.getLocations';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { createRecord } from 'lightning/uiRecordApi';
@@ -22,7 +22,7 @@ export default class NewProductItem extends LightningElement {
     
     quantityOnHand;
     quantityUnitOfMeasure;
-    @wire(getLocation) locations;
+    @wire(getLocations) locations;
     @wire(getProduct2s) product2s;
    
     handleChange(e) {
