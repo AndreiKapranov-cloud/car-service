@@ -11,15 +11,15 @@
         </div>
         
         <div class="slds-m-horizontal_small">
-           <lightning-input name="workType" label="Parent Record" value={workTypeName} required></lightning-input>
+           <lightning-input name="workType" label="Parent Record" value={workTypeName} required read-only></lightning-input>
         </div>
        
         <div class="slds-m-horizontal_small">
         <div class="slds-form-element">
-            <label class="slds-form-element__label" >Product Required</label>
+            <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Product Required</label>
             <div class="slds-form-element__control">
               <div class="slds-select_container">
-                <select class="slds-select" name="productRequired" onchange={handleChange} required>
+                <select class="slds-select" name="productRequired" onchange={handleChange} required="">
                     <template for:each={product2s.data} for:item="product" >
 
                         <option key={product.Id} value={product.Id} >{product.Name} </option>
@@ -31,7 +31,6 @@
           </div>
         </div>
 
-    
         <div class="slds-m-horizontal_small">
             <lightning-input name="quantityRequired" label="Quantity Required" onchange={handleChange} ></lightning-input>
         </div>

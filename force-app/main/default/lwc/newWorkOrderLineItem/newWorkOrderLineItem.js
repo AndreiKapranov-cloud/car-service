@@ -1,6 +1,6 @@
 import { LightningElement,wire,api} from 'lwc';
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-
+import getStatusPicklistValues from '@salesforce/apex/WorkOrderController.getStatusPicklistValues';
 import WORK_ORDER_NUMBER_FIELD from "@salesforce/schema/WorkOrder.WorkOrderNumber";
 import getWorkTypes from '@salesforce/apex/WorkTypeController.getWorkTypes';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
@@ -42,19 +42,34 @@ export default class NewWorkOrderLineItem extends LightningElement {
         }
       }
 
-    @wire(getPicklistValues, {
-    recordTypeId: RECORD_TYPE_ID,
-    fieldApiName: STATUS,
-    })
-    getPicklistValuesForField({ data, error }) {
-    if (error) {
-        // TODO: Error handling
-        console.error(error)
-    } else if (data) {
-        this.statusPicklistValues = [...data.values];
+    // @wire(getPicklistValues, {
+    // recordTypeId: RECORD_TYPE_ID,
+    // fieldApiName: STATUS,
+    // })
+    // getPicklistValuesForField({ data, error }) {
+    // if (error) {
+    //     // TODO: Error handling
+    //     console.error(error)
+    // } else if (data) {
+    //     this.statusPicklistValues = [...data.values];
+    //     }
+    // }
+
+    @wire(getStatusPicklistValues, {})
+    wiredPriorityPicklistValues({ error, data }) {
+        if (data) {
+            // Map the data to an array of options
+            this.statusPicklistValues = data.map(option => {
+                return {
+                    label: option.label,
+                    value: option.value
+                };
+            });
+        }
+        else if (error) {
+            console.error(error);
         }
     }
-
 
     async createWorkOrderLineItem() {
 
