@@ -8,7 +8,7 @@ import DESCRIPTION_FIELD from '@salesforce/schema/WorkType.Description';
 import ESTIMATED_DURATION_FIELD from '@salesforce/schema/WorkType.EstimatedDuration';
 import DURATION_TYPE_FIELD from '@salesforce/schema/WorkType.DurationType';
 import SHOULD_AUTO_CREATE_SERVICE_APPOINTMENT_FIELD from '@salesforce/schema/WorkType.ShouldAutoCreateSvcAppt';
-const RECORDTYPEID = '012000000000000AAA';
+const RECORD_TYPE_ID = '012000000000000AAA';
 
 export default class NewWorkType extends LightningElement {
     
@@ -40,7 +40,7 @@ export default class NewWorkType extends LightningElement {
       }
      
       @wire(getPicklistValues, {
-        recordTypeId: RECORDTYPEID,
+        recordTypeId: RECORD_TYPE_ID,
         fieldApiName: DURATION_TYPE_FIELD,
       })
       getPicklistValuesForField({ data, error }) {

@@ -13,7 +13,7 @@ import SERIAL_NUMBER from '@salesforce/schema/ProductItem.SerialNumber';
 import getProduct2s from '@salesforce/apex/productRequiredController.getProduct2s';
 const RECORD_TYPE_ID = '012000000000000AAA';
 
-export default class NewProductItem extends LightningElement {
+export default class NewWorkOrder extends LightningElement {
 
     location;
     productRequired;
@@ -86,4 +86,5 @@ export default class NewProductItem extends LightningElement {
         );
     }
   }
+}
 }
