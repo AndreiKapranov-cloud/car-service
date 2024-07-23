@@ -1,6 +1,5 @@
 import { LightningElement,wire,api} from 'lwc';
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import getStatusPicklistValues from '@salesforce/apex/WorkOrderController.getStatusPicklistValues';
 import WORK_ORDER_NUMBER_FIELD from "@salesforce/schema/WorkOrder.WorkOrderNumber";
 import getWorkTypes from '@salesforce/apex/WorkTypeController.getWorkTypes';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
@@ -8,7 +7,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { createRecord } from 'lightning/uiRecordApi';
 import WORK_ORDER_LINE_ITEM_OBJECT from '@salesforce/schema/WorkOrderLineItem';
 import WORK_ORDER from '@salesforce/schema/WorkOrderLineItem.WorkOrderId';
-import STATUS from '@salesforce/schema/WorkOrderLineItem.Status';
+import ITEM_STATUS from '@salesforce/schema/WorkOrderLineItem.Status';
 import WORK_TYPE from '@salesforce/schema/WorkOrderLineItem.WorkTypeId';
 import DESCRIPTION from '@salesforce/schema/WorkOrderLineItem.Description';
 const RECORD_TYPE_ID = '012000000000000AAA';
@@ -16,7 +15,7 @@ const fields = [WORK_ORDER_NUMBER_FIELD];
 
 export default class NewWorkOrderLineItem extends LightningElement {
 
-    status;
+    itemStatus;
     @api workOrderRecordId;
     
     workTypeId;
@@ -34,7 +33,7 @@ export default class NewWorkOrderLineItem extends LightningElement {
    
     handleChange(e) {
 
-        if (e.target.name === "status") {
+        if (e.target.name === "itemStatus") {
             this.status = e.target.value;
         } else if (e.target.name === "workType") {
             this.workTypeId = this.template.querySelector('select.slds-select').value;
@@ -43,34 +42,19 @@ export default class NewWorkOrderLineItem extends LightningElement {
         }
       }
 
-    // @wire(getPicklistValues, {
-    // recordTypeId: RECORD_TYPE_ID,
-    // fieldApiName: STATUS,
-    // })
-    // getPicklistValuesForField({ data, error }) {
-    // if (error) {
-    //     // TODO: Error handling
-    //     console.error(error)
-    // } else if (data) {
-    //     this.statusPicklistValues = [...data.values];
-    //     }
-    // }
-
-    @wire(getStatusPicklistValues, {})
-    wiredPriorityPicklistValues({ error, data }) {
-        if (data) {
-            // Map the data to an array of options
-            this.statusPicklistValues = data.map(option => {
-                return {
-                    label: option.label,
-                    value: option.value
-                };
-            });
-        }
-        else if (error) {
-            console.error(error);
+    @wire(getPicklistValues, {
+    recordTypeId: RECORD_TYPE_ID,
+    fieldApiName: ITEM_STATUS,
+    })
+    getPicklistValuesForField({ data, error }) {
+    if (error) {
+        // TODO: Error handling
+        console.error(error)
+    } else if (data) {
+        this.itemStatusPicklistValues = [...data.values];
         }
     }
+
 
     async createWorkOrderLineItem() {
 
