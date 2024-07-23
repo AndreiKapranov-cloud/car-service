@@ -4,6 +4,10 @@
         <div class="slds-text-align_center">New Work Order Line Item</div>
         </div>
 
+        <lightning-combobox
+        options={itemStatusPicklistValues} label="Status" onchange={handleChange} name="itemStatus"
+     ></lightning-combobox>
+     
         <div class="slds-m-around_medium">
            <div class="slds-border_bottom"></div>
         </div>
@@ -14,7 +18,7 @@
                  
                   <div class="slds-m-horizontal_small">
                     <lightning-combobox
-                       options={statusPicklistValues} label="Status" onchange={handleChange} name="status"
+                       options={itemStatusPicklistValues} label="Status" onchange={handleChange} name="itemStatus"
                     ></lightning-combobox>
                     </div>
                 </lightning-layout-item>
