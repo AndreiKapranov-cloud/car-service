@@ -13,7 +13,7 @@ const fields = [WORK_TYPE_NAME];
 
 
 export default class NewSkillRequirement extends LightningElement {
-   
+    skills = [];
     skillData = [];
     skillRequired;
     skillLevel;
@@ -47,6 +47,9 @@ export default class NewSkillRequirement extends LightningElement {
     async createSkillRequirement() {
     console.log('final workTypeRecordId for skill req = ' + this.workTypeRecordId);//без этой строчки не работает
     const fields = {};
+    console.log('List of skills for skill req = ' + this.skills);
+    console.log('final skillRequired for skill req = ' + this.skillRequired);
+    console.log('final skillLevel for skill req = ' + this.skillLevel);
     fields[WORK_TYPE.fieldApiName] = this.workTypeRecordId;
     fields[SKILL.fieldApiName] = this.skillRequired;
     fields[SKILL_LEVEL.fieldApiName] = this.skillLevel;

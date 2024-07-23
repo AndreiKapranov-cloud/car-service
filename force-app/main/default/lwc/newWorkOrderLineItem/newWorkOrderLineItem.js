@@ -21,6 +21,7 @@ export default class NewWorkOrderLineItem extends LightningElement {
     
     workTypeId;
     description;
+    statusPicklistValues = [];
 
     @wire(getWorkTypes) workTypes;
 
