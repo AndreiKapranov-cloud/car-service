@@ -2,7 +2,6 @@
 import { LightningElement,wire,api} from 'lwc';
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import WORK_ORDER_NUMBER from "@salesforce/schema/WorkOrder.WorkOrderNumber";
-import getWorkTypes from '@salesforce/apex/WorkTypeController.getWorkTypes';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { createRecord } from 'lightning/uiRecordApi';
@@ -10,8 +9,10 @@ import WORK_ORDER_LINE_ITEM_OBJECT from '@salesforce/schema/WorkOrderLineItem';
 import STATUS from '@salesforce/schema/WorkOrderLineItem.Status';
 import WORK_ORDER from '@salesforce/schema/WorkOrderLineItem.WorkOrderId';
 import WORK_TYPE from '@salesforce/schema/WorkOrderLineItem.WorkTypeId';
+import WORK_TYPE_NAME from "@salesforce/schema/WorkType.Name";
 import DESCRIPTION from '@salesforce/schema/WorkOrderLineItem.Description';
 const WORK_ORDER_FIELDS = [WORK_ORDER_NUMBER];
+const WORK_TYPE_FIELDS = [WORK_TYPE_NAME];
 const RECORD_TYPE_ID = '012000000000000AAA';
 
 export default class NewWorkOrderLineItem extends LightningElement {
@@ -19,10 +20,8 @@ export default class NewWorkOrderLineItem extends LightningElement {
     itemStatusPicklistValues = [];
     status;
     @api workOrderRecordId;
-    workTypeId;
+    @api workTypeId;
     description;
-  
-    @wire(getWorkTypes)workTypes;
 
     @wire(getRecord, { recordId: "$workOrderRecordId", WORK_ORDER_FIELDS })
     workOrder;
@@ -31,13 +30,17 @@ export default class NewWorkOrderLineItem extends LightningElement {
         return getFieldValue(this.workOrder.data, WORK_ORDER_NUMBER);
       }
 
-   
+    @wire(getRecord, { recordId: "$workTypeRecordId", WORK_TYPE_FIELDS })
+    workType;
+
+    get workTypeName() {
+        return getFieldValue(this.workType.data, WORK_TYPE_NAME);
+      }
+
     handleChange(e) {
 
         if (e.target.name === "status") {
             this.status = e.target.value;
-        } else if (e.target.name === "workType") {
-            this.workTypeId = this.template.querySelector('select.slds-select').value;
         } else if (e.target.name === "description") {
             this.description = e.target.value;
         }
@@ -64,7 +67,7 @@ export default class NewWorkOrderLineItem extends LightningElement {
         const fields = {};
       
         console.log('status = ' + this.status);
-        console.log('workOrder = ' + this.workOrderId);
+        console.log('workOrder = ' + this.workOrderRecordId);
         console.log('workTypeId = ' + this.workTypeId);
         console.log('description = ' + this.description);
         fields[STATUS.fieldApiName] = this.status;

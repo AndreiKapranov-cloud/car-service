@@ -44,27 +44,13 @@ export default class NewSkillRequirement extends LightningElement {
         }
       }
 
-     
-     @track myFieldValues;
-        defaultSkillValue;
-
-        // @wire(getSkills)
-        // setMyFieldValues({data, error}){
-        //         if(data){
-        //                 console.log("picklist data:" + data.values);
-        //                 this.myFieldValues= data.values;
-        //                 // Assign the value property to the first picklist value
-        //                 this.defaultSkillValue = data.values[0].value;
-        //         } else if(error){
-        //                 console.log(error);
-        //         }
-        // };
-
     async createSkillRequirement() {
     console.log('final workTypeRecordId for skill req = ' + this.workTypeRecordId);//без этой строчки не работает
+    
     const fields = {};
-    //this.defaultSkillValue = this.skills[0].value.fields.Id;
-   
+
+    console.log('workType Id = ' + this.workTypeRecordId);
+    console.log('workType Name = ' + this.workTypeName);
     console.log('List of skills for skill req = ' + this.skills);
     console.log('final skillRequired for skill req = ' + this.skillRequired);
     console.log('final skillLevel for skill req = ' + this.skillLevel);
