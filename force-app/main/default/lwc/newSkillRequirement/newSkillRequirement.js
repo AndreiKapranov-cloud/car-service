@@ -21,7 +21,7 @@ export default class NewSkillRequirement extends LightningElement {
     defaultSkillValue;
     @api workTypeRecordId;
 
-  
+    @api workTypeObject;
     @api workTypeName;
   
     workTypeId;
@@ -32,12 +32,12 @@ export default class NewSkillRequirement extends LightningElement {
 
     @wire(getSkills) skills;
 
-    @wire(getRecord, { recordId: "$workTypeRecordId", WORK_TYPE_FIELDS })
-    workType;
+    // @wire(getRecord, { recordId: "$workTypeRecordId", WORK_TYPE_FIELDS })
+    // workType;
 
-    get workTypeName() {
-        return getFieldValue(this.workType.data, WORK_TYPE_NAME);
-      }
+    // get workTypeName() {
+    //     return getFieldValue(this.workType.data, WORK_TYPE_NAME);
+    //   }
 
      
 

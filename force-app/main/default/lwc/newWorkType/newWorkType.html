@@ -1,11 +1,8 @@
 <template>
+
     <lightning-card>
 
         <template lwc:if={showNewWorkTypeComponent}>
-        <div class="slds-text-heading_large">
-        <div class="slds-text-align_center">New Work Type</div>
-        </div>
-
        
          <div class="slds-text-heading_large">
          <div class="slds-text-align_center">New Work Type</div>
@@ -49,7 +46,7 @@
         </template>
 
         <template lwc:elseif={showNewSkillRequirementComponent}>
-        <c-new-skill-requirement work-type-record-id={workTypeRecordId} ></c-new-skill-requirement>
-        </template>
+        <c-new-skill-requirement work-type-record-id={workTypeRecordId} work-type-name={workTypeName} work-type-object={workTypeObject}></c-new-skill-requirement>
+        </template> 
     </lightning-card>
 </template>
