@@ -9,6 +9,7 @@ import WORK_TYPE from '@salesforce/schema/SkillRequirement.RelatedRecordId';
 import SKILL from '@salesforce/schema/SkillRequirement.SkillId';
 import SKILL_LEVEL from '@salesforce/schema/SkillRequirement.SkillLevel';
 import getSkills from '@salesforce/apex/SkillController.getSkills';
+import { getFieldDisplayValue } from "lightning/uiRecordApi";
 const WORK_TYPE_FIELDS = [WORK_TYPE_NAME];
 
 
@@ -19,6 +20,9 @@ export default class NewSkillRequirement extends LightningElement {
     skillLevel;
     defaultSkillValue;
     @api workTypeRecordId;
+
+  
+    @api workTypeName;
   
     workTypeId;
     error;
@@ -34,6 +38,9 @@ export default class NewSkillRequirement extends LightningElement {
     get workTypeName() {
         return getFieldValue(this.workType.data, WORK_TYPE_NAME);
       }
+
+     
+
 
     handleChange(e) {
 
