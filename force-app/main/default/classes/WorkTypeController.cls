@@ -5,7 +5,7 @@ public with sharing class WorkTypeController {
     @AuraEnabled(cacheable=true)
     public static List<WorkType> getWorkTypes() {
         return [
-            SELECT Id,Name FROM WorkType  LIMIT 200
+            SELECT Id,Name FROM WorkType LIMIT 200
        ];
     }
 }

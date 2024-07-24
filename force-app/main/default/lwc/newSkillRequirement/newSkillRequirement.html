@@ -20,7 +20,7 @@
               <div class="slds-select_container">
                 <select class="slds-select" name="skillRequired" onchange={handleChange} required="">
                     <template for:each={skills.data} for:item="skill" >
-
+                      <!-- <option key={skill.Id} value={defaultSkillValue} selected></option> -->
                         <option key={skill.Id} value={skill.Id}>{skill.MasterLabel}</option>
         
                     </template>
@@ -29,6 +29,22 @@
             </div>
           </div>
         </div>
+
+
+        <!-- <lightning-combobox id="myField"
+        value={value}
+        options={myFieldValues}
+        onchange={doOperation}
+        style="width: 30em ;">
+</lightning-combobox> -->
+
+
+
+
+
+
+
+
 
 
         <div class="slds-m-horizontal_small">

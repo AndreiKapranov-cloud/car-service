@@ -1,5 +1,5 @@
 
-import { LightningElement,wire,api} from 'lwc';
+import { LightningElement,wire,api,track} from 'lwc';
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import WORK_TYPE_NAME from "@salesforce/schema/WorkType.Name";
 import SKILL_REQUIREMENT_OBJECT from '@salesforce/schema/SkillRequirement';
@@ -9,14 +9,15 @@ import WORK_TYPE from '@salesforce/schema/SkillRequirement.RelatedRecordId';
 import SKILL from '@salesforce/schema/SkillRequirement.SkillId';
 import SKILL_LEVEL from '@salesforce/schema/SkillRequirement.SkillLevel';
 import getSkills from '@salesforce/apex/SkillController.getSkills';
-const fields = [WORK_TYPE_NAME];
+const WORK_TYPE_FIELDS = [WORK_TYPE_NAME];
 
 
 export default class NewSkillRequirement extends LightningElement {
-    skills = [];
+    skills;
     skillData = [];
     skillRequired;
     skillLevel;
+    defaultSkillValue;
     @api workTypeRecordId;
   
     workTypeId;
@@ -27,7 +28,7 @@ export default class NewSkillRequirement extends LightningElement {
 
     @wire(getSkills) skills;
 
-    @wire(getRecord, { recordId: "$workTypeRecordId", fields })
+    @wire(getRecord, { recordId: "$workTypeRecordId", WORK_TYPE_FIELDS })
     workType;
 
     get workTypeName() {
@@ -43,10 +44,27 @@ export default class NewSkillRequirement extends LightningElement {
         }
       }
 
+     
+     @track myFieldValues;
+        defaultSkillValue;
+
+        // @wire(getSkills)
+        // setMyFieldValues({data, error}){
+        //         if(data){
+        //                 console.log("picklist data:" + data.values);
+        //                 this.myFieldValues= data.values;
+        //                 // Assign the value property to the first picklist value
+        //                 this.defaultSkillValue = data.values[0].value;
+        //         } else if(error){
+        //                 console.log(error);
+        //         }
+        // };
 
     async createSkillRequirement() {
     console.log('final workTypeRecordId for skill req = ' + this.workTypeRecordId);//без этой строчки не работает
     const fields = {};
+    //this.defaultSkillValue = this.skills[0].value.fields.Id;
+   
     console.log('List of skills for skill req = ' + this.skills);
     console.log('final skillRequired for skill req = ' + this.skillRequired);
     console.log('final skillLevel for skill req = ' + this.skillLevel);

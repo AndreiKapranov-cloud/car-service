@@ -24,7 +24,8 @@ export default class NewWorkOrder extends LightningElement {
     showParentComponent = true;
     showChildComponent = false;
 
-    @wire(getWorkTypes) workTypes;
+    @wire(getWorkTypes)workTypes;
+
    
     handleChange(e) {
 
@@ -76,6 +77,10 @@ export default class NewWorkOrder extends LightningElement {
         
         const fields = {};
       
+        console.log('status = ' + this.status);
+        console.log('workTypeId = ' + this.workTypeId);
+        console.log('subject = ' + this.subject);
+        console.log('description = ' + this.description);
         fields[STATUS.fieldApiName] = this.status;
         fields[PRIORITY.fieldApiName] = this.priority;
         fields[WORK_TYPE.fieldApiName] = this.workTypeId;

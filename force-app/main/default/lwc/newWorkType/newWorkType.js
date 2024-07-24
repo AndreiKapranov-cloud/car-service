@@ -21,7 +21,6 @@ export default class NewWorkType extends LightningElement {
      showParentComponent = true;
      showChildComponent = false;
      workTypeRecordId;
-     workTypeName;
      timeoutId;
     
      
