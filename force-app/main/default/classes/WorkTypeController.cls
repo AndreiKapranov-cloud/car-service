@@ -43,5 +43,24 @@ public with sharing class WorkTypeController {
         return values;
     }
 
- }
+    @AuraEnabled()
+    public static List<String> getPicklistValuesUsingApex(String sObjectType,String field) {
+        List<String> picklistValues = new List<String>();
+        try{
+        
+        List<Schema.PicklistEntry> entries = Schema.getGlobalDescribe().get(sObjectType).getDescribe().fields.getMap().get(field).getDescribe().getPickListValues();
+         
+        for (Schema.PicklistEntry entry : entries) {
+            picklistValues.add(entry.getValue());
+         }
+        } catch(Exception e) {
+        
+            System.debug('The following exception has occurred: ' + e.getMessage()); 
+        
+            throw new AuraHandledException('The following exception has occurred: ' + e.getMessage()); 
+        }
+        return picklistValues;
+      }
+   
+    }
     
