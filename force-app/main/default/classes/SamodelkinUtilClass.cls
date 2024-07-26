@@ -6,7 +6,6 @@ public with sharing class SamodelkinUtilClass {
 
 
 
-
     @AuraEnabled(cacheable=true)
     public static List<Map<String, String>> getDurationTypePicklistValues() {
         List<Schema.PicklistEntry> entries = WorkType.DurationType.getDescribe().getPicklistValues();
@@ -93,49 +92,41 @@ public with sharing class SamodelkinUtilClass {
     //     }
     //     return picklistValues;
     //   }
-@AuraEnabled()
-public static List<Map<String,List<String>>> getMenList(){
-
-List <String> riverFishes = new List<String>{'karas','gudgeon'};
-List <String> seaFishes = new List<String>{'vale','sward-fish'};
-
-
-List <String> catPredators = new List<String>{'tiger','lion'};
-List <String> dogPredators= new List<String>{'volf','bear'};
-
-
-List <String> australianMammals = new List<String>{'duckbill','koala'};
-List <String> arcticMammals = new List<String>{'polarBear','walrus'};
 
 
 
-Map<String,List<String>> fishes = new Map<String,List<String>>();
-fishes.put('riverFishes',riverFishes);
+           
+
+public static Map<String,Map<String,Map<String,List<String>>>> getInhabitantsList(){
+
+
+
+    List <String> seaFishes = new List<String>{'vale','sward-fish'};
+    List <String> riverFishes = new List<String>{'karas','gudgeon'};
+    
+    
+    List <String> catPredators = new List<String>{'tiger','lion'};
+    List <String> dogPredators = new List<String>{'volf','bear'};
+    
+    
+    List <String> australianMammals = new List<String>{'duckbill','koala'};
+    List <String> arcticMammals = new List<String>{'polarBear','walrus'};
+    
+    
+
+
+
+Map<String,List<String>>fishes = new Map<String,List<String>>();
 fishes.put('seaFishes',seaFishes);
+fishes.put('riverFishes',riverFishes);
 
+Map<String,List<String>>predators = new Map<String,List<String>>();
+predators.put('catPredators',catPredators);
+predators.put('dogPredators',dogPredators);
 
-
-
-Map<String,List<String>> predators = new Map<String,List<String>>();
-fishes.put('catPredators',catPredators);
-fishes.put('seaFishes',dogPredators);
-
-
-
-Map<String,List<String>> mammals = new Map<String,List<String>>();
-fishes.put('australianMammals',australianMammals);
-fishes.put('arcticMammals',arcticMammals);
-
-List<Map<String,List<String>>> animalsList = new List<Map<String,List<String>>>();
-animalsList.add(fishes);
-animalsList.add(predators);
-animalsList.add(mammals);
-
-
-
-
-
-
+Map<String,List<String>>mammals = new Map<String,List<String>>();
+mammals.put('australianMammals',australianMammals);
+mammals.put('arcticMammals',arcticMammals);
 
 
 
@@ -152,30 +143,54 @@ List <String> chineese = new List<String>{'man3','man4'};
 
 
 
-Map<String,List<String>> white = new Map<String,List<String>>();
-fishes.put('belarusians',belarusians);
-fishes.put('ukrainians',ukrainians);
 
 
 
 
-Map<String,List<String>> black = new Map<String,List<String>>();
-fishes.put('livians',livians);
-fishes.put('egyptyans',egyptyans);
+
+
+Map<String,List<String>>white = new Map<String,List<String>>();
+white.put('belarusians',belarusians);
+white.put('ukrainians',ukrainians);
+
+Map<String,List<String>>black = new Map<String,List<String>>();
+black.put('livians',livians);
+black.put('egyptyans',egyptyans);
+
+Map<String,List<String>>yellow = new Map<String,List<String>>();
+yellow.put('indians',indians);
+yellow.put('chineese',chineese);
 
 
 
-Map<String,List<String>> yellow = new Map<String,List<String>>();
-fishes.put('indians',indians);
-fishes.put('chineese',chineese);
+
+Map<String,Map<String,List<String>>>animals = new Map<String,Map<String,List<String>>>();
+animals.put('fishes',fishes);
+animals.put('predators',predators);
+animals.put('mammals',mammals);
 
 
-List<Map<String,List<String>>> menList = new List<Map<String,List<String>>>();
-menList.add(white);
-menList.add(black);
-menList.add(yellow);
+Map<String,Map<String,List<String>>>men = new Map<String,Map<String,List<String>>>();
+men.put('white',white);
+men.put('black',black);
+men.put('yellow',yellow);
 
-return menList;
+
+
+Map<String,Map<String,Map<String,List<String>>>> inhabitants = new Map<String,Map<String,Map<String,List<String>>>>();
+inhabitants.put('animals',animals);
+inhabitants.put('men',men);
+
+inhabitants.get('animals').get('predators').get('catPredators').[1];
+
+}
+
+
+
+System.debug(JSON.serializePretty(inhabitants));
+System.debug(inhabitants);
+
+return inhabitants;
 
 
     }

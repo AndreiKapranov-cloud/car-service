@@ -14,7 +14,8 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 const RECORD_TYPE_ID = '012000000000000AAA';
 
 export default class NewWorkType extends LightningElement {
-   
+    menList = [];
+
     workTypeSObjectType = 'WorkType';
     durationTypeFieldName = 'DurationType';
   
@@ -53,49 +54,53 @@ export default class NewWorkType extends LightningElement {
         }
       }
      
-      // connectedCallback(){
-      //   getDurationTypePicklistValues()
-      //     .then(result => {
-      //       this.picklistValues = result;
-      //       console.log('this.picklistValues: ', this.picklistValues);
-      //     })
-      //     .catch(zalupa =>{
-      //       console.log(zalupa);
-      //       this.error = zalupa.message;
-      //       console.log('error createWorkType');
-      //       console.log(zalupa);
-      //       this.dispatchEvent(
-      //             new ShowToastEvent({
-      //                 title: 'Error getting PickList values',
-      //                 message: zalupa,
-      //                 variant: 'error'
-      //             })
-      //         );
-      //     });
-      //   }
-
-      
       connectedCallback(){
-          console.log('this.workTypeSObjectType,this.durationTypeFieldName =',this.workTypeSObjectType,this.durationTypeFieldName);
-          getPicklistValuesUsingApex({sObjectType:this.workTypeSObjectType,field:this.durationTypeFieldName})
+
+
+        
+
+        getDurationTypePicklistValues()
           .then(result => {
-          this.picklistValues = result;
-          console.log('this.picklistValues from apex: ', this.picklistValues);
+            this.picklistValues = result;
+            console.log('this.picklistValues: ', this.picklistValues);
           })
-          .catch(error =>{
-            console.log(error);
-            this.massage = error.message;
-            console.log('Error getting PickList values');
+          .catch(zalupa =>{
+            console.log(zalupa);
+            this.error = zalupa.message;
+            console.log('error createWorkType');
             console.log(zalupa);
             this.dispatchEvent(
                   new ShowToastEvent({
                       title: 'Error getting PickList values',
-                      message: massage,
+                      message: zalupa,
                       variant: 'error'
                   })
               );
           });
-        }   
+        }
+
+      
+      // connectedCallback(){
+      //     console.log('this.workTypeSObjectType,this.durationTypeFieldName =',this.workTypeSObjectType,this.durationTypeFieldName);
+      //     getPicklistValuesUsingApex({sObjectType:this.workTypeSObjectType,field:this.durationTypeFieldName})
+      //     .then(result => {
+      //     this.picklistValues = result;
+      //     console.log('this.picklistValues from apex: ', this.picklistValues);
+      //     })
+      //     .catch(error =>{
+      //       console.log(error);
+      //       this.massage = error.message;
+      //       console.log('Error getting PickList values');
+      //       console.log(zalupa);
+      //       this.dispatchEvent(
+      //             new ShowToastEvent({
+      //                 title: 'Error getting PickList values',
+      //                 message: massage,
+      //                 variant: 'error'
+      //             })
+      //         );
+      //     });
+      //   }   
       
 
 
